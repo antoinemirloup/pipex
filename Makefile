@@ -6,7 +6,7 @@
 #    By: amirloup <amirloup@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/15 16:49:50 by amirloup          #+#    #+#              #
-#    Updated: 2024/01/17 16:18:06 by amirloup         ###   ########.fr        #
+#    Updated: 2024/01/17 17:12:28 by amirloup         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,9 +26,9 @@ GREEN = \e[1;92m
 YELLOW = \e[1;93m
 		
 all:	$(NAME)
-	@echo "$(RED)|---------------|"
+	@echo "$(RED)o---------------o"
 	@echo "$(RED)| $(GREEN)   ./pipex    $(RED)|"
-	@echo "$(RED)|---------------|"
+	@echo "$(RED)o---------------o"
 
 $(NAME):	$(OBJS)
 	@make --no-print-directory -C libft
