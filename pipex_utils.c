@@ -6,7 +6,7 @@
 /*   By: amirloup <amirloup@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 11:14:51 by amirloup          #+#    #+#             */
-/*   Updated: 2024/01/18 11:15:44 by amirloup         ###   ########.fr       */
+/*   Updated: 2024/01/18 15:06:57 by amirloup         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 void	free_tab(char **tab)
 {
-	int i;
+	int	i;
 
-    i = 0;
-    while (tab[i])
+	i = 0;
+	while (tab[i])
 	{
 		free(tab[i]);
 		i++;

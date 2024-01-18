@@ -6,7 +6,7 @@
 /*   By: amirloup <amirloup@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 09:08:43 by amirloup          #+#    #+#             */
-/*   Updated: 2024/01/18 14:02:09 by amirloup         ###   ########.fr       */
+/*   Updated: 2024/01/18 16:58:07 by amirloup         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <sys/wait.h>
+# include <sys/types.h>
+# include <sys/stat.h>
 
 # include "libft/libft.h"
 
