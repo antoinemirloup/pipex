@@ -1,26 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.h                                            :+:      :+:    :+:   */
+/*   pipex_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: amirloup <amirloup@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/17 09:08:43 by amirloup          #+#    #+#             */
-/*   Updated: 2024/01/18 14:02:09 by amirloup         ###   ########.fr       */
+/*   Created: 2024/01/18 11:14:51 by amirloup          #+#    #+#             */
+/*   Updated: 2024/01/18 11:15:44 by amirloup         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PIPEX_H
-# define PIPEX_H
+#include "pipex.h"
 
-# include <unistd.h>
-# include <fcntl.h>
-# include <stdio.h>
-# include <stdlib.h>
-# include <sys/wait.h>
+void	free_tab(char **tab)
+{
+	int i;
 
-# include "libft/libft.h"
-
-void	free_tab(char **tab);
-
-#endif
+    i = 0;
+    while (tab[i])
+	{
+		free(tab[i]);
+		i++;
+	}
+	free(tab);
+}

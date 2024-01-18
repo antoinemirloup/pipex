@@ -6,14 +6,14 @@
 #    By: amirloup <amirloup@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/15 16:49:50 by amirloup          #+#    #+#              #
-#    Updated: 2024/01/17 17:12:28 by amirloup         ###   ########.fr        #
+#    Updated: 2024/01/18 11:17:15 by amirloup         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = pipex
 CC = @cc
 CFLAGS = -Wall -Wextra -Werror -g3 -fsanitize=address
-SRCS = pipex.c
+SRCS = pipex.c pipex_utils.c
 
 INCLUDE = pipex.h
 
