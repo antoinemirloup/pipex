@@ -6,7 +6,7 @@
 #    By: amirloup <amirloup@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/15 16:49:50 by amirloup          #+#    #+#              #
-#    Updated: 2024/01/18 11:17:15 by amirloup         ###   ########.fr        #
+#    Updated: 2024/01/19 14:10:53 by amirloup         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,10 +14,13 @@ NAME = pipex
 CC = @cc
 CFLAGS = -Wall -Wextra -Werror -g3 -fsanitize=address
 SRCS = pipex.c pipex_utils.c
+# SRCS_BONUS = pipex_bonus.c pipex_utils_bonus.c
 
 INCLUDE = pipex.h
+# INCLUDE_BONUS = pipex_bonus.h
 
 OBJS =	$(SRCS:.c=.o)
+# OBJS_BONUS =	$(SRCS_BONUS:.c=.o)
 
 RM = @rm -rf
 
@@ -30,7 +33,15 @@ all:	$(NAME)
 	@echo "$(RED)| $(GREEN)   ./pipex    $(RED)|"
 	@echo "$(RED)o---------------o"
 
-$(NAME):	$(OBJS)
+# bonus:
+# 	@make --no-print-directory -C libft
+# 	$(CC) $(CFLAGS) $(OBJS_BONUS) libft/libft.a -o $(NAME)
+# 	@echo "$(RED)o---------------o"
+# 	@echo "$(RED)| $(YELLOW)    BONUS    $(RED) |"
+# 	@echo "$(RED)| $(GREEN)   ./pipex    $(RED)|"
+# 	@echo "$(RED)o---------------o"
+	
+$(NAME): $(OBJS)
 	@make --no-print-directory -C libft
 	$(CC) $(CFLAGS) $(OBJS) libft/libft.a -o $(NAME)
 

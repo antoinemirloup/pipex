@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex_utils.c                                      :+:      :+:    :+:   */
+/*   pipex_utils_bonus.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: amirloup <amirloup@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/18 11:14:51 by amirloup          #+#    #+#             */
-/*   Updated: 2024/01/19 16:02:20 by amirloup         ###   ########.fr       */
+/*   Created: 2024/01/19 10:49:51 by amirloup          #+#    #+#             */
+/*   Updated: 2024/01/19 10:50:13 by amirloup         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "pipex_bonus.h"
 
 void	free_tab(char **tab)
 {
@@ -23,22 +23,4 @@ void	free_tab(char **tab)
 		i++;
 	}
 	free(tab);
-}
-
-void	exit_end(int status)
-{
-	if (WIFEXITED(status))
-	{
-		exit(WEXITSTATUS(status));
-	}
-	else
-	{
-		exit(EXIT_FAILURE);
-	}	
-}
-
-void	error_exit(char *s)
-{
-	ft_putstr_fd(s, 2);
-	exit (EXIT_FAILURE);
 }

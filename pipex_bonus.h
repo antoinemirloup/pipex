@@ -1,44 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex_utils.c                                      :+:      :+:    :+:   */
+/*   pipex_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: amirloup <amirloup@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/18 11:14:51 by amirloup          #+#    #+#             */
-/*   Updated: 2024/01/19 16:02:20 by amirloup         ###   ########.fr       */
+/*   Created: 2024/01/19 10:48:24 by amirloup          #+#    #+#             */
+/*   Updated: 2024/01/19 10:48:52 by amirloup         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#ifndef PIPEX_BONUS_H
+# define PIPEX_BONUS_H
 
-void	free_tab(char **tab)
-{
-	int	i;
+# include <unistd.h>
+# include <fcntl.h>
+# include <stdio.h>
+# include <stdlib.h>
+# include <sys/wait.h>
+# include <sys/types.h>
+# include <sys/stat.h>
 
-	i = 0;
-	while (tab[i])
-	{
-		free(tab[i]);
-		i++;
-	}
-	free(tab);
-}
+# include "libft/libft.h"
 
-void	exit_end(int status)
-{
-	if (WIFEXITED(status))
-	{
-		exit(WEXITSTATUS(status));
-	}
-	else
-	{
-		exit(EXIT_FAILURE);
-	}	
-}
+void	free_tab(char **tab);
 
-void	error_exit(char *s)
-{
-	ft_putstr_fd(s, 2);
-	exit (EXIT_FAILURE);
-}
+#endif
