@@ -6,7 +6,7 @@
 /*   By: amirloup <amirloup@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 09:08:48 by amirloup          #+#    #+#             */
-/*   Updated: 2024/01/19 16:04:26 by amirloup         ###   ########.fr       */
+/*   Updated: 2024/01/22 14:00:25 by amirloup         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 char	**find_path(char **argv, char **env)
 {
 	int		i;
-	char	**tab;
+	char	**path;
 
 	i = 0;
 	while (env[i])
@@ -24,15 +24,20 @@ char	**find_path(char **argv, char **env)
 			break ;
 		i++;
 	}
-	tab = ft_split(&env[i][5], ':');
-	i = 0;
-	while (tab[i])
+	if (ft_strncmp(argv[0], "./", 2) == 0)
+		path = path_script(argv);
+	else
 	{
-		tab[i] = ft_strjoin(tab[i], "/");
-		tab[i] = ft_strjoin(tab[i], argv[0]);
-		i++;
+		path = ft_split(&env[i][5], ':');
+		i = 0;
+		while (path[i])
+		{
+			path[i] = ft_strjoin(path[i], "/");
+			path[i] = ft_strjoin(path[i], argv[0]);
+			i++;
+		}
 	}
-	return (tab);
+	return (path);
 }
 
 void	exec(char **argv, char **env, int n)
@@ -41,7 +46,10 @@ void	exec(char **argv, char **env, int n)
 	char	**path;
 	char	**tab;
 
-	tab = ft_split(argv[n], ' ');
+	if (argv[n][0] == '/')
+		tab = full_cmd(argv[n]);
+	else
+		tab = ft_split(argv[n], ' ');
 	i = 0;
 	path = find_path(tab, env);
 	while (path[i])
@@ -69,6 +77,7 @@ void	first_command(int *fd, char **argv, char **env)
 	close(fd[0]);
 	close(fd[1]);
 	exec(argv, env, 2);
+	close(fd1);
 }
 
 void	second_command(int *fd, char **argv, char **env)
@@ -83,6 +92,7 @@ void	second_command(int *fd, char **argv, char **env)
 	close(fd[0]);
 	close(fd[1]);
 	exec(argv, env, 3);
+	close(fd2);
 }
 
 int	main(int argc, char **argv, char **env)

@@ -6,7 +6,7 @@
 /*   By: amirloup <amirloup@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 09:08:43 by amirloup          #+#    #+#             */
-/*   Updated: 2024/01/19 15:59:45 by amirloup         ###   ########.fr       */
+/*   Updated: 2024/01/22 14:00:16 by amirloup         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,5 +26,7 @@
 void	free_tab(char **tab);
 void	exit_end(int status);
 void	error_exit(char *s);
+char	**full_cmd(char *argv);
+char	**path_script(char **argv);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: amirloup <amirloup@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 11:14:51 by amirloup          #+#    #+#             */
-/*   Updated: 2024/01/19 16:02:20 by amirloup         ###   ########.fr       */
+/*   Updated: 2024/01/22 14:01:06 by amirloup         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,4 +41,28 @@ void	error_exit(char *s)
 {
 	ft_putstr_fd(s, 2);
 	exit (EXIT_FAILURE);
+}
+
+char	**full_cmd(char *argv)
+{
+	char	**tab;
+	char	**cmd;
+	int		i;
+
+	tab = ft_split(argv, '/');
+	i = 0;
+	while (tab[i])
+		i++;
+	cmd = &tab[i - 1];
+	return (cmd);
+}
+
+char	**path_script(char **argv)
+{
+	char	**path;
+
+	path = ft_split(".", ' ');
+	path[0] = ft_strjoin(path[0], "/");
+	path[0] = ft_strjoin(path[0], argv[0]);
+	return (path);
 }
