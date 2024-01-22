@@ -6,7 +6,7 @@
 /*   By: amirloup <amirloup@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 09:08:48 by amirloup          #+#    #+#             */
-/*   Updated: 2024/01/22 14:00:25 by amirloup         ###   ########.fr       */
+/*   Updated: 2024/01/22 16:29:46 by amirloup         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,25 +44,25 @@ void	exec(char **argv, char **env, int n)
 {
 	int		i;
 	char	**path;
-	char	**tab;
+	char	**cmd;
 
 	if (argv[n][0] == '/')
-		tab = full_cmd(argv[n]);
+		cmd = full_cmd(argv[n]);
 	else
-		tab = ft_split(argv[n], ' ');
+		cmd = ft_split(argv[n], ' ');
 	i = 0;
-	path = find_path(tab, env);
+	path = find_path(cmd, env);
 	while (path[i])
 	{
 		if (access(path[i], F_OK) == 0)
 			if (access(path[i], X_OK) == 0)
-				execve(path[i], tab, env);
+				execve(path[i], cmd, env);
 		i++;
 	}
-	if (execve(path[i], tab, env) == -1)
+	if (execve(path[i], cmd, env) == -1)
 		error_exit("Command not found!\n");
 	free_tab(path);
-	free_tab(tab);
+	free_tab(cmd);
 }
 
 void	first_command(int *fd, char **argv, char **env)
