@@ -6,25 +6,11 @@
 /*   By: amirloup <amirloup@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 17:29:09 by amirloup          #+#    #+#             */
-/*   Updated: 2024/01/23 12:11:14 by amirloup         ###   ########.fr       */
+/*   Updated: 2024/01/24 14:03:38 by amirloup         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-
-int	c_q(char *s, int i, int j)
-{
-	int	q;
-
-	q = 0;
-	while (j < i)
-	{
-		if (s[j] == '"' || s[j] == '\'')
-			q++;
-		j++;
-	}
-	return (q);
-}
 
 char	*ft_strncpy(char *s1, char *s2, int n)
 {
@@ -35,8 +21,6 @@ char	*ft_strncpy(char *s1, char *s2, int n)
 	j = 0;
 	while (i < n && s2[i])
 	{
-		if (s2[j] == '"' || s2[j] == '\'')
-			j++;
 		s1[i] = s2[j];
 		i++;
 		j++;
@@ -87,8 +71,8 @@ char	**ft_split(char *s, char c)
 			i++;
 		if (i > j)
 		{
-			out[k] = malloc(sizeof(char) * ((i - j - c_q(s, i, j)) + 1));
-			ft_strncpy(out[k++], &s[j], i - j - c_q(s, i, j));
+			out[k] = (char *)malloc(sizeof(char) * ((i - j + 1)));
+			ft_strncpy(out[k++], &s[j], i - j);
 		}
 	}
 	out[k] = NULL;

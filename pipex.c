@@ -6,7 +6,7 @@
 /*   By: amirloup <amirloup@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 09:08:48 by amirloup          #+#    #+#             */
-/*   Updated: 2024/01/23 14:38:17 by amirloup         ###   ########.fr       */
+/*   Updated: 2024/01/24 14:34:59 by amirloup         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,14 +46,14 @@ void	exec(char **argv, char **env, int n)
 	char	**path;
 	char	**cmd;
 
-	if (argv[n][0] == '/')
-		cmd = full_cmd(argv[n]);
-	else if (ft_strncmp(argv[n], "awk '", 5) == 0)
-		cmd = awk_cmd(argv, n, '\'');
-	else if (ft_strncmp(argv[n], "awk \"", 5) == 0)
-		cmd = awk_cmd(argv, n, '"');
-	else
-		cmd = ft_split(argv[n], ' ');
+	cmd = split_argv(argv, n);
+	i = 0;
+	while (cmd[i])
+	{
+		cmd[i] = ft_strtrim(cmd[i], "\"");
+		cmd[i] = ft_strtrim(cmd[i], " ");
+		i++;
+	}
 	i = 0;
 	path = find_path(cmd, env);
 	while (path[i])
