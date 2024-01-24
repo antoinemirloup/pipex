@@ -6,7 +6,7 @@
 /*   By: amirloup <amirloup@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 11:14:51 by amirloup          #+#    #+#             */
-/*   Updated: 2024/01/22 15:55:11 by amirloup         ###   ########.fr       */
+/*   Updated: 2024/01/24 10:42:54 by amirloup         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +28,9 @@ void	free_tab(char **tab)
 void	exit_end(int status)
 {
 	if (WIFEXITED(status))
-	{
 		exit(WEXITSTATUS(status));
-	}
 	else
-	{
 		exit(EXIT_FAILURE);
-	}	
 }
 
 void	error_exit(char *s)

@@ -1,33 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.h                                            :+:      :+:    :+:   */
+/*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: amirloup <amirloup@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/17 09:08:43 by amirloup          #+#    #+#             */
-/*   Updated: 2024/01/23 14:36:47 by amirloup         ###   ########.fr       */
+/*   Created: 2023/10/19 17:16:47 by amirloup          #+#    #+#             */
+/*   Updated: 2023/10/22 14:42:40 by amirloup         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PIPEX_H
-# define PIPEX_H
+#include "libft.h"
 
-# include <unistd.h>
-# include <fcntl.h>
-# include <stdio.h>
-# include <stdlib.h>
-# include <sys/wait.h>
-# include <sys/types.h>
-# include <sys/stat.h>
+char	*ft_strdup(const char *s)
+{
+	int		i;
+	int		j;
+	char	*d;
 
-# include "libft/libft.h"
-
-void	free_tab(char **tab);
-void	exit_end(int status);
-void	error_exit(char *s);
-char	**full_cmd(char *argv);
-char	**path_script(char **argv);
-char	**awk_cmd(char **argv, int n, char c);
-
-#endif
+	i = 0;
+	j = 0;
+	while (s[i])
+		i++;
+	d = malloc((i + 1) * sizeof(char));
+	if (d == NULL)
+		return (NULL);
+	while (s[j] && j < i)
+	{
+		d[j] = s[j];
+		j++;
+	}
+	d[j] = '\0';
+	return (d);
+}

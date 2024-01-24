@@ -1,33 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.h                                            :+:      :+:    :+:   */
+/*   ft_memcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: amirloup <amirloup@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/17 09:08:43 by amirloup          #+#    #+#             */
-/*   Updated: 2024/01/23 14:36:47 by amirloup         ###   ########.fr       */
+/*   Created: 2023/10/19 16:06:35 by amirloup          #+#    #+#             */
+/*   Updated: 2023/10/22 09:12:15 by amirloup         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PIPEX_H
-# define PIPEX_H
+#include "libft.h"
 
-# include <unistd.h>
-# include <fcntl.h>
-# include <stdio.h>
-# include <stdlib.h>
-# include <sys/wait.h>
-# include <sys/types.h>
-# include <sys/stat.h>
+int	ft_memcmp(const void *s1, const void*s2, size_t n)
+{
+	size_t				i;
+	const unsigned char	*us1;
+	const unsigned char	*us2;
 
-# include "libft/libft.h"
-
-void	free_tab(char **tab);
-void	exit_end(int status);
-void	error_exit(char *s);
-char	**full_cmd(char *argv);
-char	**path_script(char **argv);
-char	**awk_cmd(char **argv, int n, char c);
-
-#endif
+	i = 0;
+	us1 = (const unsigned char *)s1;
+	us2 = (const unsigned char *)s2;
+	if (n == 0)
+		return (0);
+	while (i < n)
+	{
+		if (us1[i] != us2[i])
+			return ((int)(us1[i] - us2[i]));
+		i++;
+		if (i == n)
+			return (0);
+	}
+	return ((int)(us1[i] - us2[i]));
+}

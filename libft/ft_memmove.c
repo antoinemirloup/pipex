@@ -1,33 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.h                                            :+:      :+:    :+:   */
+/*   ft_memmove.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: amirloup <amirloup@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/17 09:08:43 by amirloup          #+#    #+#             */
-/*   Updated: 2024/01/23 14:36:47 by amirloup         ###   ########.fr       */
+/*   Created: 2023/10/17 16:47:52 by amirloup          #+#    #+#             */
+/*   Updated: 2023/10/20 12:10:25 by amirloup         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PIPEX_H
-# define PIPEX_H
+#include "libft.h"
 
-# include <unistd.h>
-# include <fcntl.h>
-# include <stdio.h>
-# include <stdlib.h>
-# include <sys/wait.h>
-# include <sys/types.h>
-# include <sys/stat.h>
+void	*ft_memmove(void *dest, const void *src, size_t n)
+{
+	unsigned char		*d;
+	const unsigned char	*s;
 
-# include "libft/libft.h"
-
-void	free_tab(char **tab);
-void	exit_end(int status);
-void	error_exit(char *s);
-char	**full_cmd(char *argv);
-char	**path_script(char **argv);
-char	**awk_cmd(char **argv, int n, char c);
-
-#endif
+	d = (unsigned char *)dest;
+	s = (const unsigned char *)src;
+	if (!d && !s)
+		return (0);
+	if (d > s)
+	{
+		while (n > 0)
+		{
+			d[n - 1] = s[n - 1];
+			n--;
+		}
+	}
+	else
+		ft_memcpy(d, s, n);
+	return (d);
+}

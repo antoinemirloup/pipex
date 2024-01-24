@@ -6,7 +6,7 @@
 /*   By: amirloup <amirloup@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 09:08:48 by amirloup          #+#    #+#             */
-/*   Updated: 2024/01/22 16:39:49 by amirloup         ###   ########.fr       */
+/*   Updated: 2024/01/23 14:38:17 by amirloup         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,10 @@ void	exec(char **argv, char **env, int n)
 
 	if (argv[n][0] == '/')
 		cmd = full_cmd(argv[n]);
+	else if (ft_strncmp(argv[n], "awk '", 5) == 0)
+		cmd = awk_cmd(argv, n, '\'');
+	else if (ft_strncmp(argv[n], "awk \"", 5) == 0)
+		cmd = awk_cmd(argv, n, '"');
 	else
 		cmd = ft_split(argv[n], ' ');
 	i = 0;
