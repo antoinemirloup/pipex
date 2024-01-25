@@ -6,7 +6,7 @@
 /*   By: amirloup <amirloup@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 09:08:43 by amirloup          #+#    #+#             */
-/*   Updated: 2024/01/24 14:33:29 by amirloup         ###   ########.fr       */
+/*   Updated: 2024/01/25 11:32:04 by amirloup         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,5 +29,7 @@ void	error_exit(char *s);
 char	**full_cmd(char *argv);
 char	**path_script(char **argv);
 char	**split_argv(char **argv, int n);
+char	**trim_cmd(char **cmd, char **path);
+char	**join_path(char **path, char **argv);
 
 #endif

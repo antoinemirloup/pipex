@@ -6,7 +6,7 @@
 /*   By: amirloup <amirloup@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 09:08:48 by amirloup          #+#    #+#             */
-/*   Updated: 2024/01/24 14:34:59 by amirloup         ###   ########.fr       */
+/*   Updated: 2024/01/25 11:31:33 by amirloup         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,13 +29,9 @@ char	**find_path(char **argv, char **env)
 	else
 	{
 		path = ft_split(&env[i][5], ':');
-		i = 0;
-		while (path[i])
-		{
-			path[i] = ft_strjoin(path[i], "/");
-			path[i] = ft_strjoin(path[i], argv[0]);
-			i++;
-		}
+		if (!path)
+			exit ((free_tab(path), EXIT_FAILURE));
+		path = join_path(path, argv);
 	}
 	return (path);
 }
@@ -46,14 +42,9 @@ void	exec(char **argv, char **env, int n)
 	char	**path;
 	char	**cmd;
 
+	path = NULL;
 	cmd = split_argv(argv, n);
-	i = 0;
-	while (cmd[i])
-	{
-		cmd[i] = ft_strtrim(cmd[i], "\"");
-		cmd[i] = ft_strtrim(cmd[i], " ");
-		i++;
-	}
+	cmd = trim_cmd(cmd, path);
 	i = 0;
 	path = find_path(cmd, env);
 	while (path[i])
@@ -63,10 +54,7 @@ void	exec(char **argv, char **env, int n)
 				execve(path[i], cmd, env);
 		i++;
 	}
-	if (execve(path[i], cmd, env) == -1)
-		error_exit("Command not found!\n");
-	free_tab(path);
-	free_tab(cmd);
+	error_exit((free_tab(path), free_tab(cmd), "Command not found!\n"));
 }
 
 void	first_command(int *fd, char **argv, char **env)
@@ -80,8 +68,8 @@ void	first_command(int *fd, char **argv, char **env)
 	dup2(fd[1], STDOUT_FILENO);
 	close(fd[0]);
 	close(fd[1]);
-	exec(argv, env, 2);
 	close(fd1);
+	exec(argv, env, 2);
 }
 
 void	second_command(int *fd, char **argv, char **env)
@@ -95,8 +83,8 @@ void	second_command(int *fd, char **argv, char **env)
 	dup2(fd[0], STDIN_FILENO);
 	close(fd[0]);
 	close(fd[1]);
-	exec(argv, env, 3);
 	close(fd2);
+	exec(argv, env, 3);
 }
 
 int	main(int argc, char **argv, char **env)
@@ -112,12 +100,12 @@ int	main(int argc, char **argv, char **env)
 		exit (EXIT_FAILURE);
 	pid1 = fork();
 	if (pid1 == -1)
-		exit (EXIT_FAILURE);
+		exit ((close(fd[0]), close(fd[1]), EXIT_FAILURE));
 	if (pid1 == 0)
 		first_command(fd, argv, env);
 	pid2 = fork();
 	if (pid2 == -1)
-		exit (EXIT_FAILURE);
+		exit ((close(fd[0]), close(fd[1]), EXIT_FAILURE));
 	if (pid2 == 0)
 		second_command(fd, argv, env);
 	close(fd[0]);
