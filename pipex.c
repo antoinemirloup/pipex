@@ -6,7 +6,7 @@
 /*   By: amirloup <amirloup@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 09:08:48 by amirloup          #+#    #+#             */
-/*   Updated: 2024/01/25 12:37:34 by amirloup         ###   ########.fr       */
+/*   Updated: 2024/01/25 14:43:45 by amirloup         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ void	second_command(int *fd, char **argv, char **env)
 {
 	int	fd2;
 
-	fd2 = open(argv[4], O_WRONLY | O_CREAT | O_TRUNC, 0777);
+	fd2 = open(argv[4], O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if (fd2 == -1)
 		error_exit("Error while opening outfile!\n");
 	if (dup2(fd2, STDOUT_FILENO) == -1)
