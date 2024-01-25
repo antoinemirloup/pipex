@@ -6,7 +6,7 @@
 /*   By: amirloup <amirloup@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 09:08:48 by amirloup          #+#    #+#             */
-/*   Updated: 2024/01/25 11:31:33 by amirloup         ###   ########.fr       */
+/*   Updated: 2024/01/25 12:37:34 by amirloup         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,10 @@ void	first_command(int *fd, char **argv, char **env)
 	fd1 = open(argv[1], O_RDONLY, 0777);
 	if (fd1 == -1)
 		error_exit("Error while opening infile!\n");
-	dup2(fd1, STDIN_FILENO);
-	dup2(fd[1], STDOUT_FILENO);
+	if (dup2(fd1, STDIN_FILENO) == -1)
+		exit ((close(fd[0]), close(fd[1]), close(fd1), EXIT_FAILURE));
+	if (dup2(fd[1], STDOUT_FILENO) == -1)
+		exit ((close(fd[0]), close(fd[1]), close(fd1), EXIT_FAILURE));
 	close(fd[0]);
 	close(fd[1]);
 	close(fd1);
@@ -79,8 +81,10 @@ void	second_command(int *fd, char **argv, char **env)
 	fd2 = open(argv[4], O_WRONLY | O_CREAT | O_TRUNC, 0777);
 	if (fd2 == -1)
 		error_exit("Error while opening outfile!\n");
-	dup2(fd2, STDOUT_FILENO);
-	dup2(fd[0], STDIN_FILENO);
+	if (dup2(fd2, STDOUT_FILENO) == -1)
+		exit ((close(fd[0]), close(fd[1]), close(fd2), EXIT_FAILURE));
+	if (dup2(fd[0], STDIN_FILENO) == -1)
+		exit ((close(fd[0]), close(fd[1]), close(fd2), EXIT_FAILURE));
 	close(fd[0]);
 	close(fd[1]);
 	close(fd2);
