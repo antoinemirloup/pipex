@@ -6,7 +6,7 @@
 /*   By: amirloup <amirloup@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 13:00:37 by amirloup          #+#    #+#             */
-/*   Updated: 2024/01/25 16:52:48 by amirloup         ###   ########.fr       */
+/*   Updated: 2024/01/30 10:45:22 by amirloup         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	exec(char **argv, char **env, int n)
 	error_exit((free_tab(path), free_tab(cmd), "Command not found!\n"));
 }
 
-void	first_command(int *fd, char **argv, char **env, int n)
+void	first_command(t_pipex *p, char **argv, char **env)
 {
 	int	fd_in;
 
@@ -65,85 +65,69 @@ void	first_command(int *fd, char **argv, char **env, int n)
 	if (fd_in == -1)
 		error_exit("Error while opening infile!\n");
 	if (dup2(fd_in, STDIN_FILENO) == -1)
-		exit ((close(fd[0]), close(fd[1]), close(fd_in), EXIT_FAILURE));
-	if (dup2(fd[1], STDOUT_FILENO) == -1)
-		exit ((close(fd[0]), close(fd[1]), close(fd_in), EXIT_FAILURE));
-	fflush(stdout);
-	fprintf(stderr, "%s\n", argv[n]);
-	close(fd[0]);
-	close(fd[1]);
+		exit ((close(p->fd[0]), close(p->fd[1]), close(fd_in), EXIT_FAILURE));
+	if (dup2(p->fd[1], STDOUT_FILENO) == -1)
+		exit ((close(p->fd[0]), close(p->fd[1]), close(fd_in), EXIT_FAILURE));
+	close(p->fd[0]);
+	close(p->fd[1]);
 	close(fd_in);
-	exec(argv, env, n);
+	exec(argv, env, p->n);
 }
 
-void	command(int *fd, char **argv, char **env, int n)
+void	command(t_pipex *p, char **argv, char **env)
 {
-	if (dup2(fd[0], STDIN_FILENO) == -1)
-		exit ((close(fd[0]), close(fd[1]), EXIT_FAILURE));
-	if (dup2(fd[1], STDOUT_FILENO) == -1)
-		exit ((close(fd[0]), close(fd[1]), EXIT_FAILURE));
-	fflush(stdout);
-	fprintf(stderr, "%s\n", argv[n]);
-	close(fd[0]);
-	close(fd[1]);
-	exec(argv, env, n);
+	if (dup2(p->temp, STDIN_FILENO) == -1)
+		exit ((close(p->fd[0]), close(p->fd[1]), EXIT_FAILURE));
+	if (dup2(p->fd[1], STDOUT_FILENO) == -1)
+		exit ((close(p->fd[0]), close(p->fd[1]), EXIT_FAILURE));
+	close(p->fd[0]);
+	close(p->fd[1]);
+	exec(argv, env, p->n);
 }
 
-void	last_command(int *fd, char **argv, char **env, int n)
+void	last_command(t_pipex *p, char **argv, char **env)
 {
 	int	fd_out;
 
-	fd_out = open(argv[n], O_WRONLY | O_CREAT | O_TRUNC, 0644);
+	fd_out = open(argv[p->n + 1], O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if (fd_out == -1)
 		error_exit("Error while opening infile!\n");
+	if (dup2(p->temp, STDIN_FILENO) == -1)
+		exit ((close(fd_out), EXIT_FAILURE));
 	if (dup2(fd_out, STDOUT_FILENO) == -1)
-		exit ((close(fd[0]), close(fd[1]), close(fd_out), EXIT_FAILURE));
-	if (dup2(fd[0], STDIN_FILENO) == -1)
-		exit ((close(fd[0]), close(fd[1]), close(fd_out), EXIT_FAILURE));
-	fflush(stdout);
-	fprintf(stderr, "%s\n", argv[n]);
-	close(fd[0]);
-	close(fd[1]);
+		exit ((close(fd_out), EXIT_FAILURE));
 	close(fd_out);
-	exec(argv, env, n);
+	exec(argv, env, p->n);
 }
 
 int	main(int argc, char **argv, char **env)
 {
-	int	fd[2];
-	int	pid;
-	int	status;
-	int	n;
+	t_pipex	p;
+	int		status;
 
+	status = 0;
 	if (argc < 5)
 		error_exit("Wrong format!\n");
-	n = 2;
-	while (n < argc - 1)
+	p.n = 2;
+	while (p.n < argc - 1)
 	{
-		if (pipe(fd) == -1)
+		p.temp = p.fd[0];
+		if (pipe(p.fd) == -1)
 			exit (EXIT_FAILURE);
-		pid = fork();
-		if (pid == -1)
-			exit ((close(fd[0]), close(fd[1]), EXIT_FAILURE));
-		if (pid == 0)
+		p.pid = fork();
+		if (p.pid == -1)
+			exit ((close(p.fd[0]), close(p.fd[1]), EXIT_FAILURE));
+		if (p.pid == 0)
 		{
-			fflush(stdout);
-			printf("%d\n", n);
-			if (n == 2)
-				first_command(fd, argv, env, 2);
-			else if (n > 2 && n < argc - 1)
-				command(fd, argv, env, n);
-			else if (n == argc - 1)
-				last_command(fd, argv, env, n);
+			if (p.n == 2)
+				first_command(&p, argv, env);
+			else if (p.n > 2 && p.n < argc - 2)
+				command(&p, argv, env);
+			else if (p.n == argc - 2)
+				last_command(&p, argv, env);
 		}
-		n++;
-		close(fd[0]);
-		close(fd[1]);
+		p.n++;
+		close(p.fd[1]);
 	}
-	while (n >= 2)
-	{
-		waitpid(pid, &status, 0);
-		n--;
-	}
-	exit_end(status);
+	exit_end(&p, status);
 }

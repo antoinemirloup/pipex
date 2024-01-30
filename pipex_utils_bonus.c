@@ -6,7 +6,7 @@
 /*   By: amirloup <amirloup@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 13:29:30 by amirloup          #+#    #+#             */
-/*   Updated: 2024/01/25 13:29:43 by amirloup         ###   ########.fr       */
+/*   Updated: 2024/01/30 10:41:46 by amirloup         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,13 @@ void	free_tab(char **tab)
 	free(tab);
 }
 
-void	exit_end(int status)
+void	exit_end(t_pipex *p, int status)
 {
+	while (p->n >= 2)
+	{
+		waitpid(p->pid, &status, 0);
+		p->n--;
+	}
 	if (WIFEXITED(status))
 		exit(WEXITSTATUS(status));
 	else

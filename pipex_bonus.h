@@ -6,7 +6,7 @@
 /*   By: amirloup <amirloup@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 13:26:40 by amirloup          #+#    #+#             */
-/*   Updated: 2024/01/25 13:26:51 by amirloup         ###   ########.fr       */
+/*   Updated: 2024/01/30 10:40:10 by amirloup         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,16 @@
 
 # include "libft/libft.h"
 
+typedef struct pipex
+{
+	int	n;
+	int	fd[2];
+	int	temp;
+	int	pid;
+}	t_pipex;
+
 void	free_tab(char **tab);
-void	exit_end(int status);
+void	exit_end(t_pipex *p, int status);
 void	error_exit(char *s);
 char	**full_cmd(char *argv);
 char	**path_script(char **argv);
