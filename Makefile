@@ -6,16 +6,16 @@
 #    By: amirloup <amirloup@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/15 16:49:50 by amirloup          #+#    #+#              #
-#    Updated: 2024/01/25 14:15:00 by amirloup         ###   ########.fr        #
+#    Updated: 2024/01/30 14:07:46 by amirloup         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = pipex
 NAME_BONUS = pipex_bonus
 CC = @cc
-CFLAGS = -Wall -Wextra -Werror -g3 
+CFLAGS = -Wall -Wextra -Werror -g3 -fsanitize=address
 SRCS = pipex.c pipex_utils.c pipex_utils2.c
-SRCS_BONUS = pipex_bonus.c pipex_utils_bonus.c pipex_utils_bonus2.c
+SRCS_BONUS = pipex_bonus.c pipex_utils_bonus.c pipex_utils_bonus2.c pipex_utils_bonus3.c
 
 INCLUDE = pipex.h
 INCLUDE_BONUS = pipex_bonus.h

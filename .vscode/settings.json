@@ -1,6 +1,7 @@
 {
     "C_Cpp.errorSquiggles": "disabled",
     "files.associations": {
-        "pipex.h": "c"
+        "pipex.h": "c",
+        "pipex_bonus.h": "c"
     }
 }
