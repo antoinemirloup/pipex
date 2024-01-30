@@ -6,7 +6,7 @@
 /*   By: amirloup <amirloup@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 17:16:47 by amirloup          #+#    #+#             */
-/*   Updated: 2023/10/22 14:42:40 by amirloup         ###   ########.fr       */
+/*   Updated: 2024/01/30 15:34:31 by amirloup         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ char	*ft_strdup(const char *s)
 		i++;
 	d = malloc((i + 1) * sizeof(char));
 	if (d == NULL)
-		return (NULL);
+		return (free(d), NULL);
 	while (s[j] && j < i)
 	{
 		d[j] = s[j];

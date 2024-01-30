@@ -6,11 +6,24 @@
 /*   By: amirloup <amirloup@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 17:29:09 by amirloup          #+#    #+#             */
-/*   Updated: 2024/01/24 14:03:38 by amirloup         ###   ########.fr       */
+/*   Updated: 2024/01/30 15:49:56 by amirloup         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+
+void	free_mem(char **tab)
+{
+	int	i;
+
+	i = 0;
+	while (tab[i])
+	{
+		free(tab[i]);
+		i++;
+	}
+	free(tab);
+}
 
 char	*ft_strncpy(char *s1, char *s2, int n)
 {
@@ -50,18 +63,29 @@ int	count_w(char *s, char c)
 	return (w);
 }
 
+// void	fill_tab(int i, int j, char **tab, char *s)
+// {
+// 	int	k;
+
+// 	k = 0;
+// 	tab[k] = (char *)malloc(sizeof(char) * ((i - j + 1)));
+// 	if (!tab[k])
+// 		return (free(tab[k]));
+// 	ft_strncpy(tab[k++], &s[j], i - j);
+// }
+
 char	**ft_split(char *s, char c)
 {
 	int		i;
 	int		j;
 	int		k;
-	int		wc;
-	char	**out;
+	char	**tab;
 
 	i = 0;
 	k = 0;
-	wc = count_w(s, c);
-	out = (char **)malloc(sizeof(char *) * (wc + 1));
+	tab = (char **)malloc(sizeof(char *) * (count_w(s, c) + 1));
+	if (!tab)
+		return (free_mem(tab), NULL);
 	while (s[i])
 	{
 		while (s[i] && (s[i] == c))
@@ -70,13 +94,16 @@ char	**ft_split(char *s, char c)
 		while (s[i] && (s[i] != c))
 			i++;
 		if (i > j)
+			// fill_tab(i, j, tab, s);
 		{
-			out[k] = (char *)malloc(sizeof(char) * ((i - j + 1)));
-			ft_strncpy(out[k++], &s[j], i - j);
+			tab[k] = (char *)malloc(sizeof(char) * ((i - j + 1)));
+			if (!tab[k])
+				return (free(tab[k]), NULL);
+			ft_strncpy(tab[k++], &s[j], i - j);
 		}
 	}
-	out[k] = NULL;
-	return (out);
+	tab[k] = NULL;
+	return (tab);
 }
 
 // int	main(int argc, char **argv)
