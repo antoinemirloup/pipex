@@ -6,7 +6,7 @@
 #    By: amirloup <amirloup@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/15 16:49:50 by amirloup          #+#    #+#              #
-#    Updated: 2024/01/30 14:07:46 by amirloup         ###   ########.fr        #
+#    Updated: 2024/01/30 14:57:55 by amirloup         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,8 @@ NAME_BONUS = pipex_bonus
 CC = @cc
 CFLAGS = -Wall -Wextra -Werror -g3 -fsanitize=address
 SRCS = pipex.c pipex_utils.c pipex_utils2.c
-SRCS_BONUS = pipex_bonus.c pipex_utils_bonus.c pipex_utils_bonus2.c pipex_utils_bonus3.c
+SRCS_BONUS = pipex_bonus.c pipex_utils_bonus.c pipex_utils_bonus2.c\
+			pipex_utils_bonus3.c get_next_line.c
 
 INCLUDE = pipex.h
 INCLUDE_BONUS = pipex_bonus.h
@@ -62,4 +63,8 @@ fclean:
 				
 re:		fclean all
 
+re_bonus:	fclean bonus
+
 ex:		re clean
+
+ex_bonus:	re_bonus clean
