@@ -6,7 +6,7 @@
 #    By: amirloup <amirloup@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/15 16:49:50 by amirloup          #+#    #+#              #
-#    Updated: 2024/02/01 10:16:10 by amirloup         ###   ########.fr        #
+#    Updated: 2024/02/01 12:08:02 by amirloup         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ CC = @cc
 CFLAGS = -Wall -Wextra -Werror -g3 
 SRCS = pipex.c pipex_utils.c pipex_utils2.c
 SRCS_BONUS = pipex_bonus.c pipex_utils_bonus.c pipex_utils_bonus2.c\
-			pipex_utils_bonus3.c libft/get_next_line.c
+			pipex_utils_bonus3.c
 
 INCLUDE = pipex.h
 INCLUDE_BONUS = pipex_bonus.h
