@@ -6,7 +6,7 @@
 /*   By: amirloup <amirloup@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 13:00:37 by amirloup          #+#    #+#             */
-/*   Updated: 2024/01/30 14:40:41 by amirloup         ###   ########.fr       */
+/*   Updated: 2024/02/01 11:21:37 by amirloup         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,6 @@ void	first_command(t_pipex *p, char **argv, char **env)
 
 void	mid_command(t_pipex *p, char **argv, char **env)
 {
-	if (dup2(p->temp, STDIN_FILENO) == -1)
-		exit ((close(p->fd[0]), close(p->fd[1]), EXIT_FAILURE));
 	if (dup2(p->fd[1], STDOUT_FILENO) == -1)
 		exit ((close(p->fd[0]), close(p->fd[1]), EXIT_FAILURE));
 	close(p->fd[0]);
@@ -57,8 +55,6 @@ void	last_command(t_pipex *p, char **argv, char **env)
 		fd_out = open(argv[p->n + 1], O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if (fd_out == -1)
 		error_exit("Error while opening infile!\n");
-	if (dup2(p->temp, STDIN_FILENO) == -1)
-		exit ((close(fd_out), EXIT_FAILURE));
 	if (dup2(fd_out, STDOUT_FILENO) == -1)
 		exit ((close(fd_out), EXIT_FAILURE));
 	close(fd_out);
@@ -86,7 +82,6 @@ int	main(int argc, char **argv, char **env)
 	p.n = 2;
 	while (p.n < argc - 1)
 	{
-		p.temp = p.fd[0];
 		if (pipe(p.fd) == -1)
 			exit (EXIT_FAILURE);
 		p.pid = fork();
@@ -94,8 +89,13 @@ int	main(int argc, char **argv, char **env)
 			exit ((close(p.fd[0]), close(p.fd[1]), EXIT_FAILURE));
 		if (p.pid == 0)
 			commands(p, argv, argc, env);
-		p.n++;
-		close(p.fd[1]);
+		else
+		{
+			dup2(p.fd[0], STDIN_FILENO);
+			close(p.fd[0]);
+			close(p.fd[1]);
+			p.n++;
+		}
 	}
 	exit_end(&p, status);
 }

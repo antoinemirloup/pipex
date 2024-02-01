@@ -6,7 +6,7 @@
 /*   By: amirloup <amirloup@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 17:29:09 by amirloup          #+#    #+#             */
-/*   Updated: 2024/01/30 15:49:56 by amirloup         ###   ########.fr       */
+/*   Updated: 2024/02/01 09:48:06 by amirloup         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,16 +63,15 @@ int	count_w(char *s, char c)
 	return (w);
 }
 
-// void	fill_tab(int i, int j, char **tab, char *s)
-// {
-// 	int	k;
+char	**tab_alloc(char *s, char c)
+{
+	char	**tab;
 
-// 	k = 0;
-// 	tab[k] = (char *)malloc(sizeof(char) * ((i - j + 1)));
-// 	if (!tab[k])
-// 		return (free(tab[k]));
-// 	ft_strncpy(tab[k++], &s[j], i - j);
-// }
+	tab = (char **)malloc(sizeof(char *) * (count_w(s, c) + 1));
+	if (!tab)
+		return (free_mem(tab), NULL);
+	return (tab);
+}
 
 char	**ft_split(char *s, char c)
 {
@@ -83,9 +82,7 @@ char	**ft_split(char *s, char c)
 
 	i = 0;
 	k = 0;
-	tab = (char **)malloc(sizeof(char *) * (count_w(s, c) + 1));
-	if (!tab)
-		return (free_mem(tab), NULL);
+	tab = tab_alloc(s, c);
 	while (s[i])
 	{
 		while (s[i] && (s[i] == c))
@@ -94,7 +91,6 @@ char	**ft_split(char *s, char c)
 		while (s[i] && (s[i] != c))
 			i++;
 		if (i > j)
-			// fill_tab(i, j, tab, s);
 		{
 			tab[k] = (char *)malloc(sizeof(char) * ((i - j + 1)));
 			if (!tab[k])

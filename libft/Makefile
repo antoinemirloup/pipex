@@ -6,7 +6,7 @@
 #    By: amirloup <amirloup@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/20 09:38:40 by amirloup          #+#    #+#              #
-#    Updated: 2024/01/17 16:17:28 by amirloup         ###   ########.fr        #
+#    Updated: 2024/02/01 10:21:23 by amirloup         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,7 @@ SRCS = 	ft_isalpha.c ft_isdigit.c ft_isalnum.c\
 		ft_strjoin.c ft_strtrim.c ft_split.c\
 		ft_itoa.c ft_strmapi.c ft_striteri.c\
 		ft_putchar_fd.c ft_putstr_fd.c ft_putendl_fd.c\
-		ft_putnbr_fd.c 
+		ft_putnbr_fd.c get_next_line.c
 		
 BONUS = ft_lstnew.c ft_lstadd_front.c ft_lstsize.c\
 		ft_lstlast.c ft_lstadd_back.c ft_lstdelone.c\
