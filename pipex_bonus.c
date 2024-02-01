@@ -6,7 +6,7 @@
 /*   By: amirloup <amirloup@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 13:00:37 by amirloup          #+#    #+#             */
-/*   Updated: 2024/02/01 11:21:37 by amirloup         ###   ########.fr       */
+/*   Updated: 2024/02/01 11:41:56 by amirloup         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	first_command(t_pipex *p, char **argv, char **env)
 	int		fd_in;
 
 	if (ft_strncmp(argv[1], "here_doc", 8) == 0)
-		heredoc(p, argv, env);
+		heredoc(p, argv);
 	else
 	{
 		fd_in = open(argv[1], O_RDONLY, 0777);

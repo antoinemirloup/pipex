@@ -6,7 +6,7 @@
 /*   By: amirloup <amirloup@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 13:26:40 by amirloup          #+#    #+#             */
-/*   Updated: 2024/02/01 11:18:26 by amirloup         ###   ########.fr       */
+/*   Updated: 2024/02/01 11:42:07 by amirloup         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,6 @@ char	**trim_cmd(char **cmd, char **path);
 char	**join_path(char **path, char **argv);
 void	exec(char **argv, char **env, int n);
 char	**find_path(char **argv, char **env);
-void	heredoc(t_pipex *p, char **argv, char **env);
+void	heredoc(t_pipex *p, char **argv);
 
 #endif
